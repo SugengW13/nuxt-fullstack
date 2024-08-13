@@ -7,5 +7,8 @@ export default defineNuxtConfig({
   supabase: {
     url: process.env.DATABASE_URL,
     key: process.env.DATABASE_KEY
+  },
+  prisma: {
+    installStudio: false
   }
 })
