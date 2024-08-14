@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { object, string } from 'yup';
+import { loginSchema } from '~/utils/schemas';
 
-const schema = object({
-  email: string().email('Invalid email').required('Required'),
-  password: string().min(8, 'Must be at least 8 characterss').required('Required')
-})
+const $router = useRouter()
 
 const state = reactive({
   email: undefined,
@@ -12,22 +9,28 @@ const state = reactive({
 })
 
 async function onSubmit(event: any) {
-  console.log(event.data)
+  await $fetch('/api/auth/login', {
+    method: 'post'
+  })
 }
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormGroup label="Email" name="email">
+  <UForm :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UFormGroup required label="Email" name="email">
       <UInput v-model="state.email"/>
     </UFormGroup>
 
-    <UFormGroup label="Password" name="password">
+    <UFormGroup required label="Password" name="password">
       <UInput v-model="state.password" type="password" />
     </UFormGroup>
 
-    <UButton type="submit">
-      Submit
+    <UButton type="submit" block>
+      Login
+    </UButton>
+
+    <UButton block variant="outline" type="button" @click="$router.push('/register')">
+      Register
     </UButton>
   </UForm>
 </template>

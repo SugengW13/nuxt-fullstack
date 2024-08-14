@@ -6,11 +6,11 @@
     <u-card>
       <template #header>
         <p class="text-2xl font-semibold text-center text-primary-500">
-          Login
+          Register
         </p>
       </template>
 
-      <form-login/>
+      <form-register/>
     </u-card>
   </div>
 </template>

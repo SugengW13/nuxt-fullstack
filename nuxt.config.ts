@@ -12,7 +12,12 @@ export default defineNuxtConfig({
   ],
   supabase: {
     url: process.env.DATABASE_URL,
-    key: process.env.DATABASE_KEY
+    key: process.env.DATABASE_KEY,
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      exclude: ['/register']
+    }
   },
   prisma: {
     installStudio: false
