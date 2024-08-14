@@ -6,8 +6,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxtjs/supabase',
-    '@prisma/nuxt',
-    '@sidebase/nuxt-auth'
+    '@prisma/nuxt'
   ],
   supabase: {
     url: process.env.DATABASE_URL,
