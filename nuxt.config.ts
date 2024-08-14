@@ -3,10 +3,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   devServer: { port: 3030 },
+  css: ['~/assets/css/main.css'],
   modules: [
-    '@nuxt/ui',
-    '@nuxtjs/supabase',
-    '@prisma/nuxt'
+    '@nuxt/ui', 
+    '@nuxtjs/supabase', 
+    '@prisma/nuxt', 
+    '@nuxtjs/google-fonts'
   ],
   supabase: {
     url: process.env.DATABASE_URL,
@@ -14,5 +16,11 @@ export default defineNuxtConfig({
   },
   prisma: {
     installStudio: false
+  },
+  googleFonts: {
+    families: {
+      Poppins: true
+    },
+    display: 'swap'
   }
 })
