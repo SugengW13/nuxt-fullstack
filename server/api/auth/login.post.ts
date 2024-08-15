@@ -7,38 +7,52 @@ export default defineEventHandler(async (event) => {
   try {
     const { email, password } = await readBody(event)
 
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { email: email }
     })
 
-    console.log(user)
+    if (!user) throw { message: 'Invalid email or password' }
 
-    // if (!user) throw { message: 'Invalid email or password' }
+    const isValidPassword = await compare(password, user.password)
 
-    // const isValidPassword = await compare(password, user.password)
+    if (!isValidPassword) throw { message: 'Invalid email or password' }
 
-    // if (!isValidPassword) throw { message: 'Invalid email or password' }
-    
-    // console.log(process.env.JWT_SECRET_KEY, user)
+    const token = jwt.sign({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      iat: getUnixTime(new Date()),
+      exp: getUnixTime(addDays(new Date(), 1))
+    }, process.env.JWT_SECRET_KEY ?? 'SECRET_KEY')
 
-    // const token = jwt.sign(
-    //   JSON.stringify({
-    //     sub: user.id,
-    //     email: user.email,
-    //     name: user.name,
-    //     role: user.role,
-    //     iat: getUnixTime(new Date()),
-    //     exp: getUnixTime(addDays(new Date(), 1))
-    //   }),
-    //   process.env.JWT_SECRET_KEY ?? 'SECRET_KEY',
-    //   { expiresIn: 60 * 60 * 24 }
-    // )
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: { token }
+    })
 
-    // await prisma.user.update({
-    //   where: { id: user.id },
-    //   data: { token }
-    // })
-  } catch (e) {
+    return {
+      code: 200,
+      success: true,
+      message: 'Success',
+      data: {
+        id: user.id,
+        email: user.email,
+        token: user.token,
+        name: user.name,
+        role: user.role,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+        deleted_at: user.deleted_at
+      }
+    }
+  } catch (e: any) {
     console.log(e)
+    setResponseStatus(event, 400)
+    return {
+      code: 400,
+      success: false,
+      message: e.message || 'Error'
+    }
   }
 })
