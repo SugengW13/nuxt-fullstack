@@ -1,4 +1,5 @@
 <script setup lang="ts">
+definePageMeta({ auth: false })
 </script>
 
 <template>
@@ -10,7 +11,7 @@
         </p>
       </template>
 
-      <form-register/>
+      <form-register />
     </u-card>
   </div>
 </template>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/store/auth';
 import { registerSchema } from '~/utils/schemas';
 
 const $router = useRouter()
+const $auth = useAuthStore()
 
 const state = reactive({
   email: undefined,
@@ -9,8 +11,8 @@ const state = reactive({
   passwordConfirmation: undefined
 })
 
-async function onSubmit(event: any) {
-  console.log(event.data)
+async function onSubmit() {
+  $auth.register({...state})
 }
 </script>
 

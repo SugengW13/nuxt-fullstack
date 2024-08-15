@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { ref, object, string } from "yup";
 
 export const loginSchema = object({
   email: string()
@@ -19,4 +19,5 @@ export const registerSchema = object({
   passwordConfirmation: string()
     .required('Required')
     .min(8, 'Must be at least 8 characters')
+    .oneOf([ref('password')], 'Passwords must match')
 })

@@ -1,24 +1,24 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/store/auth';
 import { loginSchema } from '~/utils/schemas';
 
 const $router = useRouter()
+const $auth = useAuthStore()
 
 const state = reactive({
   email: undefined,
   password: undefined
 })
 
-async function onSubmit(event: any) {
-  await $fetch('/api/auth/login', {
-    method: 'post'
-  })
+async function onSubmit() {
+  $auth.login({ ...state })
 }
 </script>
 
 <template>
   <UForm :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
     <UFormGroup required label="Email" name="email">
-      <UInput v-model="state.email"/>
+      <UInput v-model="state.email" />
     </UFormGroup>
 
     <UFormGroup required label="Password" name="password">
@@ -35,6 +35,4 @@ async function onSubmit(event: any) {
   </UForm>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

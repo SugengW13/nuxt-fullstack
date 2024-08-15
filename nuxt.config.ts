@@ -5,9 +5,11 @@ export default defineNuxtConfig({
   devServer: { port: 3030 },
   css: ['~/assets/css/main.css'],
   modules: [
-    '@nuxt/ui', 
-    '@nuxtjs/supabase', 
-    '@prisma/nuxt', 
+    '@nuxt/ui',
+    '@nuxtjs/supabase',
+    '@prisma/nuxt',
+    '@sidebase/nuxt-auth',
+    '@pinia/nuxt',
     '@nuxtjs/google-fonts'
   ],
   supabase: {
@@ -21,6 +23,25 @@ export default defineNuxtConfig({
   },
   prisma: {
     installStudio: false
+  },
+  auth: {
+    isEnabled: true,
+    baseURL: `${process.env.API_BASE_URL}/api/auth`,
+    provider: {
+      type: 'local',
+      endpoints: {
+        signIn: { path: '/login', method: 'post' },
+        signOut: { path: '/logout', method: 'post' },
+        signUp: { path: '/register', method: 'post' },
+        getSession: { path: '/profile', method: 'get' }
+      },
+      pages: { login: '/login' },
+      token: {
+        signInResponseTokenPointer: '/data/token',
+        maxAgeInSeconds: 60 * 60 * 24
+      }
+    },
+    globalAppMiddleware: true
   },
   googleFonts: {
     families: {
