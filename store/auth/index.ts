@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('auth', {
     async login(form: any) {
       const { signIn } = useAuth()
 
-      signIn({ ...form })
+      signIn({ ...form }, { callbackUrl: '/dashboard', redirect: true })
         .then(() => { console.log('Success') })
         .catch((e) => { console.log(e) })
     },
@@ -16,9 +16,9 @@ export const useAuthStore = defineStore('auth', {
     async register(form: any) {
       const { signUp } = useAuth()
 
-      signUp({ ...form })
+      signUp({ ...form }, { callbackUrl: '/login', redirect: true }, { preventLoginFlow: true })
         .then(() => { console.log('Success') })
-        .catch(() => { console.log('Error') })
+        .catch((e) => { console.log(e) })
     }
   }
 })

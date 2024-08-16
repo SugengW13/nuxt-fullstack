@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { data } = useAuth()
 </script>
 
 <template>
@@ -10,7 +11,7 @@
         </p>
       </template>
 
-      <form-login/>
+      <form-login />
     </u-card>
   </div>
 </template>

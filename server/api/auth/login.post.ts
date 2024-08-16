@@ -11,11 +11,21 @@ export default defineEventHandler(async (event) => {
       where: { email: email }
     })
 
-    if (!user) throw { message: 'Invalid email or password' }
+    if (!user) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid email or password'
+      })
+    }
 
     const isValidPassword = await compare(password, user.password)
 
-    if (!isValidPassword) throw { message: 'Invalid email or password' }
+    if (!isValidPassword) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid email or password'
+      })
+    }
 
     const token = jwt.sign({
       sub: user.id,
@@ -46,13 +56,8 @@ export default defineEventHandler(async (event) => {
         deleted_at: user.deleted_at
       }
     }
-  } catch (e: any) {
-    console.log(e)
-    setResponseStatus(event, 400)
-    return {
-      code: 400,
-      success: false,
-      message: e.message || 'Error'
-    }
+  } catch (error: any) {
+    console.log(error)
+    throw createError({ ...error })
   }
 })

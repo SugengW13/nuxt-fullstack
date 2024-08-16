@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     key: process.env.DATABASE_KEY,
     redirectOptions: {
       login: '/login',
-      callback: '/confirm',
+      callback: '/dashboard',
       exclude: ['/register']
     }
   },

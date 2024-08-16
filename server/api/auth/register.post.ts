@@ -1,20 +1,23 @@
 import { hash } from 'bcrypt'
 import prisma from '~/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 export default defineEventHandler(async (event) => {
   try {
-    const { email, password, passwordConfirmation } = await readBody(event)
+    const { email, password, password_confirmation } = await readBody(event)
 
-    if (!email || !password || !passwordConfirmation) {
-      return {
-        message: 'All fields are required'
-      }
+    if (!email || !password || !password_confirmation) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'All fields are required'
+      })
     }
 
-    if (password !== passwordConfirmation) {
-      return {
-        message: 'Passwords must match'
-      }
+    if (password !== password_confirmation) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Password must match'
+      })
     }
 
     const hashedPassword = await hash(password, 10)
@@ -26,16 +29,28 @@ export default defineEventHandler(async (event) => {
       }
     })
 
+    const { password: _password, ...noPasswordUser } = user
+
     return {
       success: true,
       code: 201,
-      data: { ...user },
+      data: { ...noPasswordUser },
       message: 'Success'
     }
-  } catch (e: any) {
-    console.log(e.message)
-    return {
-      success: false
+  } catch (error: any) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      const code = error.code
+      
+      switch (code) {
+        case 'P2002': throw createError({
+          statusCode: 400,
+          statusMessage: 'Email already registered'
+        })
+      }
     }
+    
+    console.log(error)
+
+    throw createError({ ...error })
   }
 })
