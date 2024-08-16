@@ -48,5 +48,8 @@ export default defineNuxtConfig({
       Poppins: true
     },
     display: 'swap'
+  },
+  colorMode: {
+    preference: 'light'
   }
 })

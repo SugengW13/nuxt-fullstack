@@ -1,15 +1,10 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
-
-onMounted(() => {
-  colorMode.preference = 'light'
-})
 </script>
 
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage/>
-    </NuxtLayout>
+    <nuxt-layout>
+      <nuxt-page/>
+    </nuxt-layout>
   </div>
 </template>

@@ -1,13 +1,15 @@
 <script setup lang="ts">
-const {data} = useAuth()
+import { useAuthStore } from '~/store/auth';
+
+definePageMeta({ middleware: ['auth'] })
+
+const $auth = useAuthStore()
 </script>
 
 <template>
-  <div>
-    {{ data }}
+  <div class="flex items-center justify-center">
+    <u-button label="Logout" @click="$auth.logout()" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

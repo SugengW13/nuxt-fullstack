@@ -19,6 +19,14 @@ export const useAuthStore = defineStore('auth', {
       signUp({ ...form }, { callbackUrl: '/login', redirect: true }, { preventLoginFlow: true })
         .then(() => { console.log('Success') })
         .catch((e) => { console.log(e) })
+    },
+
+    async logout() {
+      const { signOut } = useAuth()
+
+      signOut({ callbackUrl: '/login', redirect: true })
+        .then(() => { console.log('Success') })
+        .catch((e) => { console.log(e) })
     }
   }
 })
