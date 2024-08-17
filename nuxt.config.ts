@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts'
   ],
   supabase: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URI,
     key: process.env.DATABASE_KEY,
     redirectOptions: {
       login: '/login',
@@ -40,8 +40,7 @@ export default defineNuxtConfig({
         signInResponseTokenPointer: '/data/token',
         maxAgeInSeconds: 60 * 60 * 24
       }
-    },
-    globalAppMiddleware: true
+    }
   },
   googleFonts: {
     families: {
@@ -51,5 +50,11 @@ export default defineNuxtConfig({
   },
   colorMode: {
     preference: 'light'
+  },
+  runtimeConfig: {
+    public: {
+      DATABASE_URL: process.env.DATABASE_URL,
+      DATABASE_KEY: process.env.DATABAE_KEY
+    }
   }
 })

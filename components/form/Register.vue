@@ -18,7 +18,7 @@ async function onSubmit() {
 
 <template>
   <div>
-    <u-form :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit" @error="(e) => {console.log(e)}">
+    <u-form :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
       <u-form-group required label="Email" name="email">
         <u-input v-model="state.email" />
       </u-form-group>

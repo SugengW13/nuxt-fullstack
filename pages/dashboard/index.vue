@@ -7,7 +7,7 @@ const $auth = useAuthStore()
 </script>
 
 <template>
-  <div class="flex items-center justify-center">
+  <div class="h-screen flex items-center justify-center">
     <u-button label="Logout" @click="$auth.logout()" />
   </div>
 </template>
