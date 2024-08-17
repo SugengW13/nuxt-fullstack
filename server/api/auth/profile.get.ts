@@ -8,12 +8,7 @@ export default defineEventHandler(handleAsync(async (event) => {
     where: { id: userId }
   })
 
-  if (!user) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'Unauthorized'
-    })
-  }
+  if (!user) throw resultUnauthorized()
 
   const { password: _password, ...noPasswordUser } = user
 
