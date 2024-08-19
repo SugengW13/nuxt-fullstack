@@ -3,8 +3,12 @@
 
 <template>
   <div>
-    <nuxt-layout>
-      <nuxt-page/>
-    </nuxt-layout>
+    <u-container>
+      <nuxt-layout>
+        <nuxt-page/>
+      </nuxt-layout>
+    </u-container>
+
+    <u-notifications/>
   </div>
 </template>
