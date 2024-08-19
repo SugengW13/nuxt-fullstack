@@ -15,5 +15,6 @@ export function handleError(error: any) {
     }
   }
 
+  console.log(statusCode, message)
   return createError({ statusCode, message })
 }

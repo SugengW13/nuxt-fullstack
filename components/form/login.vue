@@ -6,12 +6,12 @@ const $router = useRouter()
 const $auth = useAuthStore()
 
 const state = reactive({
-  email: undefined,
-  password: undefined
+  email: 'sugeng@gmail.com',
+  password: 'password'
 })
 
 async function onSubmit() {
-  $auth.login({ ...state })
+  await $auth.login({ ...state })
 }
 </script>
 

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@prisma/nuxt',
     '@sidebase/nuxt-auth',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/google-fonts'
   ],
   supabase: {
@@ -54,7 +55,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       DATABASE_URL: process.env.DATABASE_URL,
-      DATABASE_KEY: process.env.DATABAE_KEY
+      DATABASE_KEY: process.env.DATABAE_KEY,
+      API_BASE_URL: process.env.API_BASE_URL
     }
   }
 })
