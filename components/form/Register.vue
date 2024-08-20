@@ -12,7 +12,8 @@ const state = reactive({
 })
 
 async function onSubmit() {
-  $auth.register({...state})
+  const res = await $auth.register({ ...state })
+  if (res) $router.push('/login')
 }
 </script>
 
@@ -31,7 +32,7 @@ async function onSubmit() {
         <u-input v-model="state.passwordConfirmation" type="password" />
       </u-form-group>
 
-      <u-button type="submit" block>
+      <u-button type="submit" block :loading="$auth.isLoading">
         Register
       </u-button>
 

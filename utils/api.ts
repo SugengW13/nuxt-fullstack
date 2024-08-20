@@ -1,3 +1,5 @@
+import type { H3Error } from 'h3'
+
 interface RequestOption {
   queryParams?: Record<string, string> | undefined
   body?: Record<string, boolean | string | string[]> | FormData | undefined
@@ -20,10 +22,10 @@ export const api = {
 
     const { token } = useAuth()
 
-    if (token) {
+    if (token.value) {
       newHeaders = {
         ...newHeaders,
-        'Authorization': `${token}`
+        'Authorization': `${token.value}`
       }
     }
 

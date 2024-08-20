@@ -18,10 +18,5 @@ export default defineEventHandler(handleAsync(async (event) => {
 
   const { password: _password, ...noPasswordUser } = user
 
-  return {
-    success: true,
-    code: 201,
-    message: 'Success',
-    data: { ...noPasswordUser }
-  }
+  return resultCreated({ ...noPasswordUser })
 }))

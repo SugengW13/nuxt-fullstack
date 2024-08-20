@@ -16,23 +16,23 @@ async function onSubmit() {
 </script>
 
 <template>
-  <UForm :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormGroup required label="Email" name="email">
-      <UInput v-model="state.email" />
-    </UFormGroup>
+  <u-form :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
+    <u-form-group required label="Email" name="email">
+      <u-input v-model="state.email" />
+    </u-form-group>
 
-    <UFormGroup required label="Password" name="password">
-      <UInput v-model="state.password" type="password" />
-    </UFormGroup>
+    <u-form-group required label="Password" name="password">
+      <u-input v-model="state.password" type="password" />
+    </u-form-group>
 
-    <UButton type="submit" block>
+    <u-button type="submit" block :loading="$auth.isLoading">
       Login
-    </UButton>
+    </u-button>
 
-    <UButton block variant="outline" type="button" @click="$router.push('/register')">
+    <u-button block variant="outline" type="button" @click="$router.push('/register')">
       Register
-    </UButton>
-  </UForm>
+    </u-button>
+  </u-form>
 </template>
 
 <style scoped></style>

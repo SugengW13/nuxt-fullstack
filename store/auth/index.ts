@@ -1,35 +1,69 @@
 import { defineStore } from "pinia";
 
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLoading: false
   }),
   actions: {
     async login(form: any) {
-      const { signIn } = useAuth()
+      this.isLoading = true
 
-      signIn({ ...form }, { callbackUrl: '/dashboard', redirect: true })
-        .then(() => { console.log('Success') })
-        .catch((e) => { console.log(e) })
+      try {
+        const { signIn } = useAuth()
+
+        await signIn(
+          { ...form },
+          { callbackUrl: '/dashboard', redirect: true }
+        )
+
+        toast.success('Success')
+        return true
+      } catch (e: any) {
+        toast.error('Wrong email or password')
+      } finally {
+        this.isLoading = false
+      }
     },
 
     async register(form: any) {
-      const { signUp } = useAuth()
+      this.isLoading = true
 
-      signUp({ ...form }, { callbackUrl: '/login', redirect: true }, { preventLoginFlow: true })
-        .then(() => { console.log('Success') })
-        .catch((e) => {
-          console.table(e.message)
-          useToast().add({ title: e })
-        })
+      try {
+        const { signUp } = useAuth()
+
+        await signUp(
+          { ...form },
+          { callbackUrl: '/login', redirect: true },
+          { preventLoginFlow: true }
+        )
+
+        toast.success('Success')
+        return true
+      } catch (e: any) {
+        console.log(e)
+        toast.error('Email already registered')
+      } finally {
+        this.isLoading = false
+      }
     },
 
     async logout() {
-      const { signOut } = useAuth()
+      this.isLoading = true
 
-      signOut({ callbackUrl: '/login', redirect: true })
-        .then(() => { console.log('Success') })
-        .catch((e) => { console.log(e) })
+      try {
+        const { signOut } = useAuth()
+        
+        signOut({ callbackUrl: '/login', redirect: true })
+
+        toast.success('Success')
+        return true
+      } catch (e: any) {
+        console.log(e)
+        toast.error('Unauthorized')
+      } finally {
+        this.isLoading = false
+      }
     }
   }
 })
