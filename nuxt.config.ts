@@ -40,12 +40,27 @@ export default defineNuxtConfig({
       token: {
         signInResponseTokenPointer: '/data/token',
         maxAgeInSeconds: 60 * 60 * 24
+      },
+      sessionDataType: {
+        code: 'number',
+        success: 'boolean',
+        message: 'string',
+        data: {
+          id: 'string',
+          email: 'string',
+          token: 'string',
+          name: 'string | null',
+          role: 'string',
+          createdAt: 'Date',
+          updatedAt: 'Date',
+          deletedAt: 'Date | null'
+        }
       }
     }
   },
   googleFonts: {
     families: {
-      Poppins: true
+      Poppins: [100, 200, 300, 400, 500, 600, 700, 800, 900]
     },
     display: 'swap'
   },

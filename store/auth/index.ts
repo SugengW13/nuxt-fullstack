@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { signOut } = useAuth()
         
-        signOut({ callbackUrl: '/login', redirect: true })
+        await signOut({ callbackUrl: '/login', redirect: true })
 
         toast.success('Success')
         return true
