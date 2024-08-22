@@ -23,7 +23,7 @@ const $emit = defineEmits(['on-click-edit'])
         </div>
       </div>
 
-      <u-button size="md" @click="$emit('on-click-edit')">
+      <u-button @click="$emit('on-click-edit')">
         Edit Profile
       </u-button>
     </div>

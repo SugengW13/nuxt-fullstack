@@ -21,11 +21,10 @@ onMounted(() => {
 })
 
 async function onSubmit() {
-  $auth.updateProfile({...form})
-  .then(async () => {
-    await $auth.getProfile()
-    $emit('on-success')
-  })
+  $auth.updateProfile({ ...form })
+    .then(async () => {
+      $emit('on-success')
+    })
 }
 </script>
 
@@ -40,11 +39,12 @@ async function onSubmit() {
     </u-form-group>
 
     <div class="grid grid-cols-2 gap-5">
-      <u-button block type="submit" size="md" :loading="$auth.isLoading">
+      <u-button block type="submit" :loading="$auth.isLoading.form">
         Save
       </u-button>
 
-      <u-button block type="button" size="md" variant="outline" @click="$emit('on-click-cancel')">
+      <u-button block type="button" variant="outline" :disabled="$auth.isLoading.form"
+        @click="$emit('on-click-cancel')">
         Cancel
       </u-button>
     </div>

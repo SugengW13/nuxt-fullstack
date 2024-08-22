@@ -93,7 +93,7 @@ export const useAuthStore = defineStore('auth', {
       this.isLoading.form = true
 
       try {
-        const res = api.put('/auth/profile', {
+        const res = await api.put('/auth/profile', {
           body: { ...form }
         })
 

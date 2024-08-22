@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '~/store/auth';
+import { isAuthenticated } from '~/utils/functions';
 
 const { status } = useAuth()
 const $auth = useAuthStore()
@@ -8,10 +9,6 @@ const $emit = defineEmits([
   'on-click-login',
   'on-click-register'
 ])
-
-const isAuthenticated = computed(() => {
-  return status.value === 'authenticated'
-})
 </script>
 
 <template>
@@ -22,7 +19,7 @@ const isAuthenticated = computed(() => {
     </div>
 
     <div class="flex items-center space-x-3">
-      <div v-if="!isAuthenticated" class="space-x-3">
+      <div v-if="!isAuthenticated(status)" class="flex items-center space-x-3">
         <u-button variant="outline" :disabled="$auth.isLoading.form" @click="$emit('on-click-login')">Login</u-button>
         <u-button :disabled="$auth.isLoading.form" @click="$emit('on-click-register')">Register</u-button>
       </div>

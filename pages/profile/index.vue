@@ -10,14 +10,15 @@ const isOpenModal = ref({
 })
 
 onMounted(() => {
-  $page.setTitle('Profile')
+  $page.setTitle('My Profile')
 })
 </script>
 
 <template>
   <div class="space-y-5">
     <general-modal v-model="isOpenModal.editProfile" title="Edit Profile">
-      <form-edit-profile @on-click-cancel="isOpenModal.editProfile = false" @on-success="isOpenModal.editProfile = false" />
+      <form-edit-profile @on-click-cancel="isOpenModal.editProfile = false"
+        @on-success="isOpenModal.editProfile = false" />
     </general-modal>
 
     <app-button-back />
@@ -25,13 +26,7 @@ onMounted(() => {
     <div class="flex space-x-5">
       <card-user-profile @on-click-edit="isOpenModal.editProfile = true" />
 
-      <u-card class="w-full">
-        <template #header>
-          <p class="text-lg font-medium">Personalize</p>
-        </template>
-
-        Select Primary Color
-      </u-card>
+      <card-personalize />
     </div>
   </div>
 </template>

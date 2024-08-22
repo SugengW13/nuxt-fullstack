@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '~/store/auth';
 
-const { data, signOut } = useAuth()
+const { data } = useAuth()
 const $router = useRouter()
 const $colorMode = useColorMode()
 const $auth = useAuthStore()
@@ -20,8 +20,8 @@ const items = computed(() => {
         click: onClickProfile
       },
       {
-        label: `${isLightMode.value ? 'Dark' : 'Light'} Mode`,
-        icon: isLightMode.value ? 'material-symbols:dark-mode' : 'material-symbols:light-mode',
+        label: `${isLightMode.value ? 'Light' : 'Dark'} Mode`,
+        icon: isLightMode.value ? 'material-symbols:light-mode' : 'material-symbols:dark-mode',
         click: onClickColorMode
       }
     ],
