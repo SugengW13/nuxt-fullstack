@@ -2,7 +2,7 @@
 const $router = useRouter()
 
 onMounted(() => {
-  $router.push('/login')
+  $router.push('/dashboard')
 })
 </script>
 

@@ -33,7 +33,7 @@ export default defineNuxtConfig({
         signUp: { path: '/register', method: 'post' },
         getSession: { path: '/profile', method: 'get' }
       },
-      pages: { login: '/login' },
+      pages: undefined,
       token: {
         signInResponseTokenPointer: '/data/token',
         maxAgeInSeconds: 60 * 60 * 24
