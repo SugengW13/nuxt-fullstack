@@ -1,19 +1,21 @@
 import prisma from "~/lib/prisma"
-import { compare } from 'bcrypt'
+import { handleAsync } from "~/server/utils/handle-async"
 import jwt from 'jsonwebtoken'
 import { addDays, getUnixTime } from "date-fns"
-import { resultOK, resultError } from "~/server/utils/handle-response"
 
 export default defineEventHandler(handleAsync(async (event) => {
-  const { email, password } = await readBody(event)
+  const userId = event.context.auth?.sub as string
 
-  const user = await prisma.user.findUnique({ where: { email } })
+  const { name } = await readBody(event)
 
-  if (!user) throw resultError(400, 'Invalid email or password')
+  if (!name) throw resultError(400, 'Name is required')
 
-  const isValidPassword = await compare(password, user.password)
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: { name }
+  })
 
-  if (!isValidPassword) throw resultError(400, 'Invalid email or password')
+  if (!user) throw resultUnauthorized()
 
   const token = jwt.sign({
     sub: user.id,
@@ -34,8 +36,12 @@ export default defineEventHandler(handleAsync(async (event) => {
     sameSite: 'lax',
     maxAge: 60 * 60 * 24
   })
-
   const { password: _password, ...noPasswordUser } = updatedUser
 
-  return resultOK({ ...noPasswordUser })
+  return {
+    code: 200,
+    success: true,
+    message: 'Success',
+    data: { ...noPasswordUser }
+  }
 }))

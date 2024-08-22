@@ -3,6 +3,7 @@ import { usePageStore } from '~/store/page';
 
 definePageMeta({ middleware: ['auth'] })
 
+const $router = useRouter()
 const $page = usePageStore()
 
 onMounted(() => {
@@ -12,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div>
-
+    Dashboard page
   </div>
 </template>
 

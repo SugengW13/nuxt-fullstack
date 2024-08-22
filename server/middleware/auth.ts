@@ -1,14 +1,17 @@
 import { handleAuth } from "#imports"
 
 export default defineEventHandler(handleAsync(async (event) => {
-  const requestURL = getRequestURL(event)
+  const path = getRequestURL(event).pathname
+  const method = event.method
 
-  const protectedRoutes = [
-    '/api/auth/profile',
-    '/api/auth/logout',
-    '/api/grade'
-  ]
+  const protectedRoutes: Record<string, string[]> = {
+    'GET': ['/api/auth/profile'],
+    'POST': ['/api/auth/logout'],
+    'PUT': ['/api/auth/profile'],
+    'DELETE': []
+  }
 
-  if (protectedRoutes.includes(requestURL.pathname))
-    handleAuth(event)
+  if (protectedRoutes[method] && protectedRoutes[method].includes(path)) {
+    await handleAuth(event)
+  }
 }))

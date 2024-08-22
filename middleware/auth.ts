@@ -2,7 +2,8 @@ export default defineNuxtRouteMiddleware((to, _) => {
   const { status } = useAuth()
 
   const protectedRoutePath = [
-    '/dashboard'
+    '/dashboard',
+    '/profile'
   ]
 
   if (status.value === 'unauthenticated' && protectedRoutePath.includes(to.path)) {

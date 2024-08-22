@@ -1,3 +1,8 @@
+export interface FormEditProfile {
+  email: undefined | string
+  name: undefined | string
+}
+
 interface ManagedAt {
   createdAt: Date
   updatedAt: Date

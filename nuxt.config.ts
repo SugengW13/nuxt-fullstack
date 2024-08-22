@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   devServer: { port: 3030 },
+  ssr: false,
   css: ['~/assets/css/main.css'],
   modules: [
     '@nuxt/ui',
@@ -16,18 +17,14 @@ export default defineNuxtConfig({
   supabase: {
     url: process.env.DATABASE_URI,
     key: process.env.DATABASE_KEY,
-    redirectOptions: {
-      login: '/login',
-      callback: '/dashboard',
-      exclude: ['/register']
-    }
+    redirect: false
   },
   prisma: {
     installStudio: false
   },
   auth: {
     isEnabled: true,
-    baseURL: `${process.env.API_BASE_URL}/api/auth`,
+    baseURL: `${process.env.API_BASE_URL}/auth`,
     provider: {
       type: 'local',
       endpoints: {

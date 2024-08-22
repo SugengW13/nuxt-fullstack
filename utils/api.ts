@@ -1,8 +1,6 @@
-import type { H3Error } from 'h3'
-
 interface RequestOption {
   queryParams?: Record<string, string> | undefined
-  body?: Record<string, boolean | string | string[]> | FormData | undefined
+  body?: Record<string, undefined | boolean | string | string[]> | FormData | undefined
   headers?: Record<string, string> | undefined
   isByte?: boolean | undefined
 }
@@ -69,14 +67,14 @@ export const api = {
 
   post: async (
     url: string,
-    option: RequestOption
+    option?: RequestOption
   ) => {
     const { newUrl, newHeaders } = api.provider(url, { ...option })
 
     const response = await fetch(newUrl, {
       method: 'POST',
       headers: newHeaders,
-      body: option.body instanceof FormData ? option.body : JSON.stringify(option.body)
+      body: option?.body instanceof FormData ? option.body : JSON.stringify(option?.body)
     })
 
     return await api.afterResponse(response, option?.isByte || false)
@@ -84,14 +82,14 @@ export const api = {
 
   put: async (
     url: string,
-    option: RequestOption
+    option?: RequestOption
   ) => {
     const { newUrl, newHeaders } = api.provider(url, { ...option })
 
     const response = await fetch(newUrl, {
       method: 'PUT',
       headers: newHeaders,
-      body: option.body instanceof FormData ? option.body : JSON.stringify(option.body)
+      body: option?.body instanceof FormData ? option.body : JSON.stringify(option?.body)
     })
 
     return await api.afterResponse(response, option?.isByte || false)
@@ -99,7 +97,7 @@ export const api = {
 
   delete: async (
     url: string,
-    option: RequestOption
+    option?: RequestOption
   ) => {
     const { newUrl, newHeaders } = api.provider(url, { ...option })
 

@@ -16,6 +16,8 @@ export default defineEventHandler(handleAsync(async (event) => {
     data: { email, password: hashedPassword }
   })
 
+  deleteCookie(event, 'access_token')
+
   const { password: _password, ...noPasswordUser } = user
 
   return resultCreated({ ...noPasswordUser })

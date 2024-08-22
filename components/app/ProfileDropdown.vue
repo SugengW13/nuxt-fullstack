@@ -14,15 +14,43 @@ const items = computed(() => {
   return [
     [{ label: data.value?.data.email!, slot: 'account', disabled: true }],
     [
-      { label: 'Settings', icon: 'material-symbols:settings-outline' },
-      { label: `${isLightMode.value ? 'Dark' : 'Light'} Mode`, icon: isLightMode.value ? 'material-symbols:dark-mode' : 'material-symbols:light-mode', slot: 'color_mode' }
+      {
+        label: 'My Profile',
+        icon: 'material-symbols:person-outline',
+        click: onClickProfile
+      },
+      {
+        label: `${isLightMode.value ? 'Dark' : 'Light'} Mode`,
+        icon: isLightMode.value ? 'material-symbols:dark-mode' : 'material-symbols:light-mode',
+        click: onClickColorMode
+      }
     ],
-    [{ label: 'Logout', slot: 'logout', icon: 'material-symbols:logout' }]
+    [
+      {
+        label: 'Register',
+        icon: 'material-symbols:person-add-outline',
+        click: onClickRegister
+      },
+      {
+        label: 'Logout',
+        icon: 'material-symbols:logout',
+        class: 'font-medium text-red-500 dark:text-red-500',
+        click: onClickLogout
+      }
+    ]
   ]
 })
 
-async function onClickColorMode() {
+async function onClickProfile() {
+  $router.push('/profile')
+}
+
+function onClickColorMode() {
   $colorMode.preference = isLightMode.value ? 'dark' : 'light'
+}
+
+function onClickRegister() {
+  $router.push('/register')
 }
 
 async function onClickLogout() {
@@ -40,20 +68,6 @@ async function onClickLogout() {
       <div class="w-full flex flex-col items-start">
         <p class="text-xs">Signed in as</p>
         <p class="font-medium">{{ item.label }} </p>
-      </div>
-    </template>
-
-    <template #color_mode="{ item }">
-      <div class="w-full flex items-center justify-between" @click="onClickColorMode">
-        <p>{{ item.label }}</p>
-        <u-icon :name="item.icon" class="h-4 w-4" />
-      </div>
-    </template>
-
-    <template #logout="{ item }">
-      <div class="w-full flex items-center justify-between" @click="onClickLogout">
-        <p>{{ item.label }} </p>
-        <u-icon :name="item.icon" class="h-4 w-4" />
       </div>
     </template>
 

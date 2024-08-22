@@ -41,7 +41,6 @@ export const useAuthStore = defineStore('auth', {
         toast.success('Success')
         return true
       } catch (e: any) {
-        console.log(e)
         toast.error('Email already registered')
       } finally {
         this.isLoading = false
@@ -53,14 +52,49 @@ export const useAuthStore = defineStore('auth', {
 
       try {
         const { signOut } = useAuth()
-        
+
         await signOut({ callbackUrl: '/login', redirect: true })
 
         toast.success('Success')
         return true
       } catch (e: any) {
-        console.log(e)
         toast.error('Unauthorized')
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    async getProfile() {
+      this.isLoading = true
+
+      try {
+        const { getSession } = useAuth()
+
+        const res = await getSession()
+
+        const newToken = res?.data.token
+
+        useCookie('auth.token').value = newToken
+        return true
+      } catch (e: any) {
+        toast.error(e.message)
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    async updateProfile(form: FormEditProfile) {
+      this.isLoading = true
+
+      try {
+        const res = api.put('/auth/profile', {
+          body: { ...form }
+        })
+
+        toast.success('Success')
+        return res
+      } catch (e: any) {
+        toast.error(e.message)
       } finally {
         this.isLoading = false
       }

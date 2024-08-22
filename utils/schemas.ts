@@ -21,3 +21,11 @@ export const registerSchema = object({
     .min(8, 'Must be at least 8 characters')
     .oneOf([ref('password')], 'Passwords must match')
 })
+
+export const editProfileSchema = object({
+  email: string()
+    .required('Required')
+    .email('Invalid email'),
+  name: string()
+    .required('Required')
+})

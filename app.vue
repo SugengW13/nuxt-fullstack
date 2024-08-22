@@ -8,6 +8,6 @@ const $colorMode = useColorMode()
       <nuxt-page />
     </nuxt-layout>
 
-    <u-notifications class="pointer-events-none"/>
+    <u-notifications class="pointer-events-none" />
   </div>
 </template>
