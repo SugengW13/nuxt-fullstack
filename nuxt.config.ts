@@ -70,5 +70,15 @@ export default defineNuxtConfig({
       DATABASE_KEY: process.env.DATABAE_KEY,
       API_BASE_URL: process.env.API_BASE_URL
     }
+  },
+  vite: {
+    ssr: {
+      external: ["@prisma/client"]
+    },
+    resolve: {
+      alias: {
+        ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js"
+      }
+    }
   }
 })
