@@ -6,11 +6,11 @@ export default defineNuxtRouteMiddleware((to, _) => {
     '/profile'
   ]
 
-  if (status.value === 'unauthenticated' && protectedRoutePath.includes(to.path)) {
-    return navigateTo('/login')
-  }
+  // if (status.value === 'unauthenticated' && protectedRoutePath.includes(to.path)) {
+  //   return navigateTo('/login')
+  // }
 
-  if (status.value === 'authenticated' && to.path === '/login') {
-    return navigateTo('/dashboard')
-  }
+  // if (status.value === 'authenticated' && to.path === '/login') {
+  //   return navigateTo('/dashboard')
+  // }
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '~/store/auth';
 
-const { data } = useAuth()
+const { data, signOut } = useAuth()
 const $router = useRouter()
 const $colorMode = useColorMode()
 const $auth = useAuthStore()
@@ -27,11 +27,6 @@ const items = computed(() => {
     ],
     [
       {
-        label: 'Register',
-        icon: 'material-symbols:person-add-outline',
-        click: onClickRegister
-      },
-      {
         label: 'Logout',
         icon: 'material-symbols:logout',
         class: 'font-medium text-red-500 dark:text-red-500',
@@ -49,13 +44,8 @@ function onClickColorMode() {
   $colorMode.preference = isLightMode.value ? 'dark' : 'light'
 }
 
-function onClickRegister() {
-  $router.push('/register')
-}
-
 async function onClickLogout() {
-  const res = await $auth.logout()
-  if (res) $router.push('/login')
+  $auth.logout()
 }
 </script>
 

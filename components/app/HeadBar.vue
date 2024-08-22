@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/store/auth';
+
+const { status } = useAuth()
+const $auth = useAuthStore()
+
+const $emit = defineEmits([
+  'on-click-login',
+  'on-click-register'
+])
+
+const isAuthenticated = computed(() => {
+  return status.value === 'authenticated'
+})
 </script>
 
 <template>
@@ -8,8 +21,13 @@
       Fullstack
     </div>
 
-    <div>
-      <app-profile-dropdown />
+    <div class="flex items-center space-x-3">
+      <div v-if="!isAuthenticated" class="space-x-3">
+        <u-button variant="outline" :disabled="$auth.isLoading.form" @click="$emit('on-click-login')">Login</u-button>
+        <u-button :disabled="$auth.isLoading.form" @click="$emit('on-click-register')">Register</u-button>
+      </div>
+
+      <app-profile-dropdown v-else />
     </div>
   </div>
 </template>
