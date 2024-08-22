@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { data } = useAuth()
+import { usePersonalizeStore } from '~/store/persistent/personalize';
+
 const $colorMode = useColorMode()
 const $uiConfig = useAppConfig().ui
+const $personalize = usePersonalizeStore()
 
 const $emit = defineEmits(['on-click-edit'])
 
@@ -45,7 +47,7 @@ function onChangeColorMode(value: any) {
 
         <div class="grid grid-cols-5 gap-2 w-fit">
           <div v-for="color in primaryColorOptions" :class="`bg-${color}-400`"
-            class="w-4 h-4 rounded-full cursor-pointer hover:opacity-75" @click="$uiConfig.primary = color" />
+            class="w-4 h-4 rounded-full cursor-pointer hover:opacity-75" @click="$personalize.setPrimaryColor(color)" />
         </div>
       </div>
     </div>

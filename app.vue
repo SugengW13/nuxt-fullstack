@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { usePersonalizeStore } from './store/persistent/personalize';
+
 const $colorMode = useColorMode()
+const $uiConfig = useAppConfig().ui
+const $personalize = usePersonalizeStore()
+
+watch(() => $personalize.$state.primaryColor, (color) => {
+  $uiConfig.primary = color
+}, { immediate: true })
 </script>
 
 <template>
