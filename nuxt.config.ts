@@ -20,6 +20,8 @@ export default defineNuxtConfig({
     redirect: false
   },
   prisma: {
+    installCLI: false,
+    installClient: false,
     installStudio: false
   },
   auth: {
@@ -72,9 +74,6 @@ export default defineNuxtConfig({
     }
   },
   vite: {
-    ssr: {
-      external: ["@prisma/client"]
-    },
     resolve: {
       alias: {
         ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js"
